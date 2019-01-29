@@ -4,7 +4,7 @@ float x;
 float y;
 //x and y are the position of where the ellipse is
 float r = 0;
-float angle =0;
+
 
 
 void setup(){
