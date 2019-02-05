@@ -21,7 +21,7 @@ void draw() {
    hitDetection();
   
   if(buttonIsClicked){
-     bgColor = color(0, 100, 200);
+     bgColor = color(0, 100, 200); // starts w/ pink
   }else{
     bgColor = color(220, 100, 200);
   }
@@ -47,5 +47,6 @@ void hitDetection(){
   } else {
     bgColor = color(220, 100, 200);
   }
+  //this function is for where the mouse is over the rectangle
   
 }

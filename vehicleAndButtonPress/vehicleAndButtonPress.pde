@@ -4,7 +4,6 @@ float carW, carH;
 float buttonLeftX, buttonRightX, buttonForwardX, buttonBackX, buttonY, buttonW;
 
 
-
 void setup() {
 
   size(600, 400);
@@ -55,8 +54,8 @@ void drawCar() {
 void moveCar() {
 
   PVector toMove = new PVector(carDirection.x, carDirection.y);
-  toMove.mult(speed);
-  pos.add( toMove );
+  toMove.mult(speed); //how fast
+  pos.add( toMove ); // add to the position you want it to move
 
 }
 
@@ -102,7 +101,7 @@ void mouseClicked() {
 
       println("turn left clicked!");
 
-      carDirection.rotate(-turnSpeed);
+      carDirection.rotate(-turnSpeed); //this makes it look like it is moving like a vehicle
 
     } else if (mouseX > buttonForwardX && mouseX < buttonForwardX + buttonW) {
 
