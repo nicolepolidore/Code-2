@@ -1,6 +1,7 @@
 
 int speed = 3;
 PVector pos, velocity;
+String display = "don't hit the parked cars!";
 
 
 void setup(){
@@ -19,23 +20,51 @@ void setup(){
 
 void draw(){
   
-   background(118,117,118);
+   background(88,87,87);
    
-    fill(255);
+   Collision();
+   drawText();
+   
+    fill(229,187,250);
     rect(180,900,150,150); //button left
     rect(380,900,150,150); //button right
     rect(580,900,150,150); //button up
     rect(780,900,150,150); //button down
     
-    fill(0);
+    fill(255);
     triangle(185,850,130,900,185,960); //left
     triangle(385,850,385,960,430,900); //right
     triangle(585,850,530,900,630,900); //up
     triangle(785,950,730,900,830,900);//down
+     
     
-    fill(0);
-    ellipse(500,200,100,100);
-   speed ++;
+    fill(92,222,149);
+    rect(600,600,100,200); // car 1
+    fill(255,255,0);
+    ellipse(570,530,20,20);
+     ellipse(630,530,20,20);
+    
+    fill(139,92,222);
+    rect (800, 300, 100,200); // car 2
+    fill(255,255,0);
+    ellipse(770,230,20,20);
+    ellipse(830,230,20,20);
+    
+    fill(186,92,222);
+    rect(300,400,100,200);//car 3
+    fill(255,255,0);
+    ellipse(270,330,20,20);
+    ellipse(330,330,20,20);
+    
+    
+   
+   
+       
+   
+    
+    
+   
+
       
     if(mouseX > 180 && mouseX < 330 && mouseY > 900 && mouseY < 1050){ //left button
       velocity.x = -speed;     
@@ -62,6 +91,34 @@ void draw(){
      ellipse(80, 30,20,20);
      ellipse(80,-30,20,20); 
      popMatrix();
+     
+     
 
 }
+    void Collision(){
+      
+     float d = dist(600,600,pos.x,pos.y); //x1,y1,x2,y2
+     float e = dist (800,300,pos.x,pos.y);
+     float f = dist (300,400,pos.x,pos.y);
+     
+     if(d <=200 || d <= 100){
+      display = "Game Over!";
+      
+     }else if( e <= 200 || d <=100){
+       
+       display = "Game Over!";
+     }else if(f <= 200 || d <= 100){
+       
+       display = "Game Over!";
+     }
+     
+    }
     
+    void drawText(){
+     fill(222,92,116);
+     PFont font;
+     font = loadFont ("TwCenMT-Bold-48.vlw");
+     textFont(font);
+     textSize(50);
+     text(display,270,100);
+    }
