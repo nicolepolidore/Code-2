@@ -7,6 +7,7 @@ class circleButton{
  color fill;
  int size;
  boolean circleButtonClicked = false;
+ float d = dist(circX, circY, mouseX, mouseY);
   
 circleButton(){
  
@@ -20,6 +21,5 @@ void display(){
  fill(fill);
  ellipse(circX,circY,size,size);
 }
-
 
 }
