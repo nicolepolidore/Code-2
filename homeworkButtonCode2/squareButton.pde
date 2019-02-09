@@ -2,7 +2,7 @@ class squareButton{
   
   float rectX = 200;
   float rectY = 200;
-  float rectWidth = 60;
+  float rectWidth = 100;
   float rectHeight = 70;
   int size;
   color fill;
