@@ -7,18 +7,16 @@ class Circles{
   Circles()
   {
    size = 10;
-   fill = color(80,234,169);
+   fill = color( random(255), random(255), random(255), random(255)); 
+;
    xPos = random(0, width);
-   yPos = random(0,height);
-   
-   
+   yPos = height/2;
+
    float yDir = random(-1,1);
    
    if(yDir<0 || yDir >0){
     ySpeed = 5; 
    }
-     
-    
   }
   
   void display(){
@@ -28,18 +26,14 @@ class Circles{
   }
   
   void move(){
-    
-   xPos += xSpeed;
+    xPos += xSpeed;
    yPos += ySpeed;
   }
   
+  
+ 
+  
   void checkBoundaries(){
-    if(xPos >= width - size/2 || xPos <= 0 + size/2)
-     {
-        xPos = 20;
-        ySpeed = 10;
-     }
-     
       if(yPos >= height - size/2 || yPos <= 0 + size/2)
       {
         yPos = 20;
@@ -48,4 +42,6 @@ class Circles{
     
   }
   
-}
+     
+  }
+  

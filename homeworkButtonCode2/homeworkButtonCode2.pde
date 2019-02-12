@@ -1,6 +1,5 @@
 circleButton cb;
 squareButton sb;
-cButton2 cb2;
 Circles c;
 
    float circX= 500;
@@ -19,14 +18,6 @@ Circles c;
   color bgColor = color (200,100,200);
   boolean squareButtonClicked = false;
   
-   float cButtonX= 700;
-   float cButtonY = 500;
-   float cButtonWidth = 100;
-   float cButtonHeight = 100;
-  
-   boolean cButtonClicked = false;
-   float d2 = dist(cButtonX, cButtonY, mouseX, mouseY);
-   
    int numCircles = 30;
    ArrayList<Circles> circleFall = new ArrayList<Circles>();
    float [][]pos = new float [numCircles][numCircles];
@@ -39,7 +30,6 @@ void setup(){
   size(1000,1000);
   cb = new circleButton();
   sb = new squareButton();
-  cb2 = new cButton2();
   c = new Circles();
   
   for (int i=0; i < numCircles; i++){
@@ -57,19 +47,11 @@ if(squareButtonClicked){
      c.move();
      c.display();
      
-    }
-  
-}
+  }
+ }
+
 cb.display();
 sb.hitDetection();
-//for(Circles c: circleFall){
-//     c.checkBoundaries();
-//     c.move();
-//     c.display();
-     
-//    }
-
-
 }
 
 void mouseClicked(){
@@ -93,9 +75,7 @@ void mouseClicked(){
            squareButtonClicked = false; 
           }else{
             squareButtonClicked = true;
-           cb2.displaycButton();
-          }
-          
-          
+           // cb2.displaycButton();
+          }    
       }
 }
