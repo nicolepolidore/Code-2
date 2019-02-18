@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 float circleButtonX,circleButtonY;
 float squareButtonX,squareButtonY;
 
