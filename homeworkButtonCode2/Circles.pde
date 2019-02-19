@@ -1,5 +1,5 @@
 class Circles{
- 
+ //local variables
   float xPos, yPos, xSpeed, ySpeed;
   int size;
   color fill;

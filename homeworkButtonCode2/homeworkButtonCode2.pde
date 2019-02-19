@@ -1,27 +1,18 @@
 circleButton cb;
 squareButton sb;
 Circles c;
+ThirdButton tb;
 
-   float circX= 500;
-   float circY = 500;
-   float circWidth = 60;
-   float circHeight = 60;
-   color fill;
-   int size;
-   boolean circleButtonClicked = false;
-   float d = dist(circX, circY, mouseX, mouseY);
- 
-  float rectX = 200;
-  float rectY = 200;
-  float rectWidth = 60;
-  float rectHeight = 70;
-  color bgColor = color (200,100,200);
-  boolean squareButtonClicked = false;
+  // boolean circleButtonClicked = false; 
+   boolean squareButtonClicked = false;
+   boolean thirdButtonClicked = false;
+   
   
    int numCircles = 30;
    ArrayList<Circles> circleFall = new ArrayList<Circles>();
    float [][]pos = new float [numCircles][numCircles];
    color [] colors = new color[numCircles];
+   //anything outside of class is global
 
 
 void setup(){
@@ -30,6 +21,7 @@ void setup(){
   size(1000,1000);
   cb = new circleButton();
   sb = new squareButton();
+  tb = new ThirdButton();
   c = new Circles();
   
   for (int i=0; i < numCircles; i++){
@@ -43,39 +35,22 @@ void draw(){
 
 if(squareButtonClicked){
   for(Circles c: circleFall){
+     tb.buttonDisplay();
      c.checkBoundaries();
      c.move();
-     c.display();
-     
+     c.display();  
   }
  }
+ 
 
 cb.display();
-sb.hitDetection();
+
 }
 
 void mouseClicked(){
-  
- if(d<circWidth){
-     circleButtonClicked = false;
- }else{
-     circleButtonClicked = true;
-     fill(200,100,100);
-     sb.displaySquare();
-}
-  println(circleButtonClicked);
+ 
+  cb.circleHit();
+  sb.hitDetection();
+  tb.buttonHit();
 
-
- if(mouseX > rectX &&
-    mouseX < rectX + rectWidth && 
-    mouseY > rectY && 
-    mouseY < rectY + rectHeight) { 
-      
-       if(squareButtonClicked){
-           squareButtonClicked = false; 
-          }else{
-            squareButtonClicked = true;
-           // cb2.displaycButton();
-          }    
-      }
 }
