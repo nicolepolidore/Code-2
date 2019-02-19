@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 float circleButtonX,circleButtonY;
 float squareButtonX,squareButtonY;
 
@@ -98,4 +98,4 @@ void mousePressed(){
   }
   
 }
->>>>>>> fc786aa9be7aa1b98d63f35416542aa68da22949
+
