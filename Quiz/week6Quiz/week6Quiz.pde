@@ -1,25 +1,44 @@
-
-int numCircles = 5;
-float dist = 50;
+PVector offset = new PVector (50,0);
 float degrees = PI;
-float [] angleX = new float[numCircles];
-float [] angleY = new float [numCircles];
+color colorFill;
+
+
 void setup(){
  background(0);
  size(800,800);
- colorMode(HSB, TWO_PI, 100,100);
+ noStroke();
+ colorMode(RGB, 255,255,255);
+
+ colorFill = color(255,255,0);
+ offset.rotate(radians(45));
+ smooth();
 
 }
 
 void draw(){
-  degrees +=1;
-  background(0);
- float x = cos(radians(degrees))*100;
- float y = sin(radians(degrees))*100;
- 
- ellipse(400+x,400 + y, 60,60);
- ellipse(400 +x+5, 400+y+5,60,60);
- 
-  
 
+offset.rotate(radians(1));
+background(0);
+fill(colorFill);
+
+
+translate(width/2, height/2);
+ellipse(offset.x*2, -offset.y*3, 50, 50); 
+//the offset.y is multiplied by 3 because I think that is what you meant by "pulse"
+rotate(radians(72));
+ellipse(offset.x*2, -offset.y*3, 50, 50);
+
+rotate(radians(72));
+ellipse(offset.x*2, -offset.y*3, 50, 50);
+
+rotate(radians(72));
+ellipse(offset.x*2, -offset.y*3, 50, 50);
+
+rotate(radians(72));
+ellipse(offset.x*2, -offset.y*3, 50, 50);
 }
+
+
+    
+  
+  
