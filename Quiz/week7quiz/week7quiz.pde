@@ -2,11 +2,10 @@
 int x;
 int y;
 int xSpeed;
-int ySpeed;
 PVector pos, vel, acc;
-float ballW = 70;
-float ballH = 70;
-PVector gravity = new PVector(1,0);
+float ballW = 200;
+float ballH = 200;
+PVector gravity = new PVector(0,1);
 boolean isCaught = false;
 
 
@@ -15,9 +14,8 @@ void setup(){
   size(1000,1000);
   pos = new PVector(700,500);
   vel = new PVector(0,0);
-  acc = new PVector(0,0);
-  xSpeed = 5;
-  ySpeed = 5;
+  acc = new PVector(0,.2);
+  xSpeed = 2;
   x = width/2;
   y = height/2;
 }
@@ -25,42 +23,50 @@ void setup(){
 
 
 void draw(){
-
+ 
   background(25,181,193);
-  fill(171,86,229);
-  ellipse(x,y,ballW,ballH); 
-  x+= xSpeed;
-  y+= ySpeed;
-  
-  if((pos.x> -ballW/2) || (pos.x <  ballW/2)){
-     xSpeed *= -1; 
-     
-     
+  fill(250,156,249);
+  ellipse(pos.x,pos.y,ballW,ballH); 
+  pos.add(vel);
+  vel.add(acc);
+  pos.x += xSpeed;
+  if(pos.x < ballW/2){
+   
+    xSpeed *=-1;
+    vel.x = vel.x *-.8;
+    pos.x = ballW/2;
   }
   
-  if(pos.y >height - ballH/2){
-    ySpeed *= -1; 
- 
+  if(pos.x > width -(ballW/2)){
+   vel.x = vel.x *-.8;
+  xSpeed *=-1;
+   pos.x = width- (ballW/2);
+  }
+
+  if(pos.y > height -(ballH/2)){
+   vel.y = vel.y *-.8;
+   pos.y = height - (ballH/2);
   }
 }
+
  void mouseDragged(){
-   if(dist(x,y,pmouseX,pmouseY)< ballW /2){
-    x = mouseX;
-    y = mouseY;
+
+   if(dist(pos.x,pos.y,pmouseX,pmouseY)< ballW /2){
+    isCaught = true;
+    pos.x = mouseX;
+    pos.y = mouseY;
+   
   }
  }
   
  void mouseReleased(){
-       isCaught = false;
-       x+=xSpeed;
-       xSpeed *= -1;
-       y+= ySpeed;
-       ySpeed *= -1;
-       vel.add(vel);
-       acc.add(acc);
-       
-      
-      
-      
+      isCaught = false;
+      acc.x = acc.x *1;
+      acc.y = acc.y *1;
+      vel.x = vel.x *1;
+      vel.y = vel.y *1;
+      pos.x= pos.x +1;
+      pos.y = pos.y +1;
+ 
     }
   
