@@ -3,27 +3,39 @@ float barW;
 float turtPostion, turtVelocity;
 float turtSpeed =3;
 int turtArrayPosition = 0;
+float circx,circy;
 float hitDetection = turtArrayPosition;
 
 void setup() {
-  size(700,700);
+  background(116,150,210);
+  size(1000,1000);
   noStroke();
+ barW= 100;
+ circy = 0 ;
+ circx = 0;
 }
 
 
 void draw() {
+    background(116,150,210);
   float rand = random(1);
   //values divide by screen size for rectangles
-  float current = 0;
+ 
  for(int i = 0; i <values.length; i++){
-    current += values[i];
-    fill(0);
-   rect(i, i/height,i/width,i/height);
-   if(rand < turtArrayPosition){
-   turtArrayPosition= i;
-   break;
-   }
+    fill(230,162,197);
+   rect((width/values.length)*i, 0, width/values.length, height*values[i]);
   
+   }
+   fill(252,209,107);
+   ellipse(circx,circy,20,20);
+   circy +=rand;
+   circx +=3;
+   
+  if(circy>height && circx > width){
+   circx = width/values.length;
+   circy = height*values.length; 
+   circy =0;
+  
+  }
  }
   
-}
