@@ -17,15 +17,17 @@ class Character {
 
  String [] stateNames = {"STAND","WALK"};
  float [][] choices = {
-   
-   {.25,.25,.25,.25,.25},
-   {.25,.25,.25,.25,.25}
+   //
+   {.25,.25,.25,.25},
+   {.25,.25,.25,.25}
   
  };
  
  
  
  Character(){
+   
+   //put outside of class
    velo = new PVector(0,0);
    pos = new PVector (random(width),random(height));
    
@@ -103,16 +105,18 @@ void playWalkAnimation(){
 }
 
 int getNewState(){
+  //start over at frame 0
  frameNumber =0;
  float rand = random(1);
- float currentTotal = 0;
- float [] range = choices[STATE];
- for(int i = 0; i < range.length/2; i++){
-  currentTotal += range[i];
-  if(rand < currentTotal){
-   return i; 
+ float currentTotal = 0; //currently
+ float [] range = choices[STATE]; //choose from array, choose the percentage chance
+ 
+ for(int i = 0; i < range.length; i++){ 
+  currentTotal += range[i]; //current array and add it to the total. i = state to switch to
+  if(rand < currentTotal){ 
+   return i; //stop the for loop and would return integer
   } 
  }
-   return 0;
+   return 0; //safety line
 }
 }  
