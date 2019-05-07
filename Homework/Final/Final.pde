@@ -14,6 +14,7 @@ int gameState = 1;
 PImage backImg;
 int x,y;
 PImage [] newBack;
+int score = 0;
 
 void setup(){
   
@@ -36,6 +37,7 @@ void setup(){
   obstacleX = 630;
   obstacleY = 630;
   
+  
   size(700,700);
   
   backImg = loadImage("Purple.png");
@@ -46,8 +48,9 @@ void setup(){
 void draw(){
  
   if(gameState ==0){
+    
  //-------------------------------BACKGROUND
- 
+
   image(backImg, x, 0);
   image(backImg, x + backImg.width, 0);
   x -=6; //moves it
@@ -55,7 +58,13 @@ void draw(){
   if(x <=0){
     x = width + 40;
   }
-
+ PFont scoreF;
+ fill(255);
+    scoreF = loadFont("GillSansMT-48.vlw");
+    textFont(scoreF);
+    textSize(40);
+ 
+  text("score:" + " " + score, 100, 40);
  //---------------------------------GAME STUFF
   noStroke();
   pongBall();  
@@ -63,6 +72,7 @@ void draw(){
   enemy2();
   obstacles();
   hitPlayer();
+  hitEnemy();
   ellipseMode(CENTER);
   smooth();
   
@@ -203,9 +213,11 @@ void hitPlayer(){
 
 void hitEnemy(){
  
-  if(bulletX > enemX && bulletX < enemX  && bulletY < enemY  && bulletY > enemY){
-    
-    gameState = 2;
+    if(bulletX < enemX +20 && bulletX  > enemX -20 && bulletY < enemY +20 && bulletY > enemY -20){
+    enemX = 0;
+    enemY = random(30,670);
+    score ++;
+      
   }
 }
 
