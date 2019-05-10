@@ -16,6 +16,10 @@ int x,y;
 PImage [] newBack;
 int score = 0;
 
+float time =  100;
+float max_time = 100;
+float rectWidth = 70;
+
 void setup(){
   
   ballX = 630;
@@ -80,9 +84,27 @@ void draw(){
   fill(0);
   ellipse(bulletX, bulletY,10,10);
  
-  fill(0);
+  fill(237,230,7);
   rect(enemX, enemY,rectSize,rectSize);
   
+  //-------------------------------------HEALTH
+  
+  if(time < 25){
+    fill(255,0,0);
+  }else if(time < 50){
+   fill(255,200,0); 
+  }else{
+    fill(0,255,0);
+  }
+  
+  noStroke();
+  float drawWidth = (time/ max_time) * rectWidth;
+  rect(500,10,drawWidth,30);
+  stroke(0);
+  noFill();
+  rect(500,10,rectWidth,30);
+    
+    
   if(isShot){
     
     bulletX -=20;
@@ -111,15 +133,24 @@ void draw(){
     }
     if(gameState ==2 ){
      background(0,255,0);
+     fill(0);
     textAlign(CENTER);
     PFont font2;
     font2 = loadFont("GillSansMT-48.vlw");
     textFont(font2);
     textSize(40);
     text("game over", width/2,height/2);
+    text(score, width/2, height/3);
     text("click to restart",width/2,450);
      if(mousePressed ){
+    
       gameState = 0;
+      if(gameState == 0){
+      score = 0;
+      ballX = 20;
+      ballY = 20;
+      }
+        
     }
       
     }
@@ -199,13 +230,32 @@ if(obstacleX > 700){
 
 void hitPlayer(){
   
-  if(ballX < enemX +20 && ballX  > enemX -20 && ballY < enemY +20 && ballY > enemY -20){
+   if(ballX < enemX +20 && ballX  > enemX -20 && ballY < enemY +20 && ballY > enemY -20){
     enemX = 0;
     enemY = random(30,670);
-        gameState =2;
-  }
+    score = 0;
+    ballX = 630;
+    ballY = 50;
+      gameState =2;
+   }
+    time -= .1;
+    
+    if(time < 0){
+    enemX = 0;
+    enemY = random(30,670);
+    score = 0;
+    ballX = 630;
+    ballY = 50;
+   
+    }
+    
+  
+  
   float d = dist(ballX,ballY,obstacleX,obstacleY);
     if(d <= 40){
+      score = 0;
+    ballX = 630;
+    ballY = 50;
     gameState =2;
   }
    
@@ -214,6 +264,7 @@ void hitPlayer(){
 void hitEnemy(){
  
     if(bulletX < enemX +20 && bulletX  > enemX -20 && bulletY < enemY +20 && bulletY > enemY -20){
+    background(255,0,0,0);
     enemX = 0;
     enemY = random(30,670);
     score ++;
