@@ -1,3 +1,4 @@
+import processing.sound.*;
 
 float ballX,ballY,ballSpeedY,ballSpeedX, bulletX,bulletY;
 float enemX, enemY,obstacleX,obstacleY;
@@ -16,18 +17,27 @@ int x,y;
 PImage [] newBack;
 int score = 0;
 
+PImage player;
+PImage  enemy;
+PImage coin;
+PImage obstacle;
+
 float time =  100;
 float max_time = 100;
 float rectWidth = 70;
 
+SoundFile song;
 void setup(){
   
+  song = new SoundFile(this, "General Morello.mp3");
+  song.play();
+  song.loop();
   ballX = 630;
   ballY = 50;
   ballSpeedY = 0;
   ballSpeedX = 0;
-  rectSize = 20;
-  ballSize = 20;
+  rectSize = 120;
+  ballSize = 100;
   
   bulletX = 650;
   bulletY = 50;
@@ -44,14 +54,19 @@ void setup(){
   
   size(700,700);
   
+  player = loadImage("code Character.png");
   backImg = loadImage("Purple.png");
+  enemy = loadImage("enemyCode.png");
+  coin = loadImage("Retro-Coin-icon.png");
+  obstacle = loadImage("ObstacleCode.png");
+  
   imageMode(CENTER);
-  image(backImg, width/2,height/2);
 }
 
 void draw(){
  
   if(gameState ==0){
+
     
  //-------------------------------BACKGROUND
 
@@ -83,11 +98,13 @@ void draw(){
  
   fill(0);
   ellipse(bulletX, bulletY,10,10);
- 
-  fill(237,230,7);
-  rect(enemX, enemY,rectSize,rectSize);
+   enemy = loadImage("enemyCode.png");
+image(enemy, enemX,enemY,rectSize,rectSize);
+
   
-  //-------------------------------------HEALTH
+  //-------------------------------------TIMER
+  
+
   
   if(time < 25){
     fill(255,0,0);
@@ -103,7 +120,18 @@ void draw(){
   stroke(0);
   noFill();
   rect(500,10,rectWidth,30);
-    
+  
+  fill(255);
+  
+  PFont timerFont;
+ fill(255);
+    timerFont = loadFont("GillSansMT-48.vlw");
+    textFont(timerFont);
+    textSize(40);
+ 
+  text("time:",450, 40);
+
+//------------------------------------------
     
   if(isShot){
     
@@ -131,8 +159,9 @@ void draw(){
     if(mousePressed ){
       gameState = 0;
     }
+//----------------------------------------------------GAME OVER SCREEN
     if(gameState ==2 ){
-     background(0,255,0);
+     background(83,162, 175);
      fill(0);
     textAlign(CENTER);
     PFont font2;
@@ -140,12 +169,12 @@ void draw(){
     textFont(font2);
     textSize(40);
     text("game over", width/2,height/2);
-    text(score, width/2, height/3);
     text("click to restart",width/2,450);
      if(mousePressed ){
     
       gameState = 0;
       if(gameState == 0){
+
       score = 0;
       ballX = 20;
       ballY = 20;
@@ -157,13 +186,13 @@ void draw(){
     
   }
 
-  
  }
   
 void pongBall(){
-  
-  fill(255);
-  ellipse(ballX,ballY, ballSize,ballSize);
+  imageMode(CENTER);
+  image(player,ballX,ballY,100,100);
+  //fill(255);
+  //ellipse(ballX,ballY, ballSize,ballSize);
   
  
   if(ballY +(ballSize/2) > height){
@@ -177,6 +206,7 @@ void pongBall(){
 }
 
 void enemy(){
+  
   
 if(moveTowards == true){
   enemX = enemX +4;
@@ -193,8 +223,8 @@ if(enemX > 650){
 }
 
 void enemy2(){
-   fill(250,148,45);
-  rect(enemX2,enemY2, rectSize,rectSize);
+    enemy = loadImage("enemyCode.png");
+image(enemy, enemX2,enemY2,rectSize*2,rectSize*2);
   if(moveTowards == true){
   enemX2 = enemX2 + 6;
   
@@ -211,9 +241,9 @@ if(enemX2 > 700){
 }
 
 void obstacles(){
-  fill(45,31,124);
- ellipse(obstacleX, obstacleY, 60,60);
-  
+    obstacle = loadImage("ObstacleCode.png");
+    image(obstacle, obstacleX,obstacleY,120,120);
+
   if(moveTowards == true){
   obstacleX = obstacleX +6;
   
@@ -229,6 +259,8 @@ if(obstacleX > 700){
 }
 
 void hitPlayer(){
+      time -= .1;
+
   
    if(ballX < enemX +20 && ballX  > enemX -20 && ballY < enemY +20 && ballY > enemY -20){
     enemX = 0;
@@ -236,27 +268,39 @@ void hitPlayer(){
     score = 0;
     ballX = 630;
     ballY = 50;
+    time = max_time;
+
       gameState =2;
    }
-    time -= .1;
     
-    if(time < 0){
+    if(time <= 0){
+    gameState = 2;
+    time = max_time;
     enemX = 0;
     enemY = random(30,670);
     score = 0;
     ballX = 630;
     ballY = 50;
-   
-    }
-    
-  
+      }
+      
+   if(ballX < enemX2 +20 && ballX  > enemX2 -20 && ballY < enemY2 +20 && ballY > enemY2 -20){
+    enemX = 0;
+    enemY = random(30,670);
+    score = 0;
+    ballX = 630;
+    ballY = 50;
+        time = max_time;
+
+      gameState =2;
+   }
   
   float d = dist(ballX,ballY,obstacleX,obstacleY);
     if(d <= 40){
+    gameState =2;
+      time = max_time;
       score = 0;
     ballX = 630;
     ballY = 50;
-    gameState =2;
   }
    
 }
@@ -268,6 +312,14 @@ void hitEnemy(){
     enemX = 0;
     enemY = random(30,670);
     score ++;
+      
+  }
+  
+   if(bulletX < enemX2 +20 && bulletX  > enemX2 -20 && bulletY < enemY2 +20 && bulletY > enemY2 -20){
+    background(255,0,0,0);
+    enemX2 = 0;
+    enemY2 = random(30,670);
+    score +=3;
       
   }
 }
